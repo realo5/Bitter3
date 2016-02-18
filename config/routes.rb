@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  
-  root 'pages#index'
+
+  root 'pages#new'
 
   get '/home' => 'pages#home'
 
