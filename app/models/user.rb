@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  attr_accessible :username, :email, :password, :password_confirmation
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+  end
   
   before_save :encrypt_password
   after_save :clear_password
@@ -14,8 +16,8 @@ class User < ActiveRecord::Base
     self.password = nil
   end
   
-  attr_accessor :password
-  EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  attr_accessor :password, :user, :password_confirmation, :email
+  EMAIL_REGEX = /A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}z/i
   validates :username, :presence => true, :uniqueness => true, :length => { :in => 3..20 }
   validates :email, :presence => true, :uniqueness => true, :format => EMAIL_REGEX
   validates :password, :confirmation => true, :uniqueness => true

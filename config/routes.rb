@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-
-  root 'pages#new'
+  
+  root 'pages#index'
+ 
+  get '/new' => 'users#create'
 
   get '/home' => 'pages#home'
 
